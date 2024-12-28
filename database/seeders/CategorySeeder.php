@@ -20,10 +20,19 @@ class CategorySeeder extends Seeder
         ],
     ];
 
-    private function getCategories()
+ private function getCategories(): array
     {
-        return $this->categories;
+        $categories = [];
+        for ($i = 1; $i <= 1000; $i++) {
+            $categories[] = [
+                
+                'name' => 'Category ' . $i,
+                'description' => 'Description for Category ' . $i,
+            ];
+        }
+        return $categories;
     }
+
 
     /**
      * Run the database seeds.
