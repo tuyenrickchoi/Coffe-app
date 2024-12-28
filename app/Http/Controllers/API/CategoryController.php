@@ -8,13 +8,21 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Lấy số lượng item mỗi trang từ query parameter, mặc định là 10
+        $perPage = $request->query('per_page', 10);
+
+        // Tìm kiếm và phân trang dữ liệu
         $query = Category::query()
-            ->when(request('search'), function(Builder $query, $search) {
-                return $query->where('name', 'like', '%'.$search);
+            ->when($request->query('search'), function (Builder $query, $search) {
+                return $query->where('name', 'like', '%' . $search . '%');
             });
-        return $query->simplePaginate();
+
+        // Phân trang
+        $categories = $query->paginate($perPage);
+
+        return response()->json($categories);
     }
     /**
      * Display a listing of the resource.
