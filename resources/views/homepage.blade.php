@@ -6,3 +6,12 @@
     @endforeach
 </x-user-layout>
 
+  {{-- add more space for avoid cart bar override content --}}
+  <div class="w-full min-h-[150px]"></div>
+    
+    <x-slot name="components">
+         <livewire:checkout.cart-bar />
+ 
+         <livewire:checkout.add-cart-item-popup />
+     </x-slot>
+ 
