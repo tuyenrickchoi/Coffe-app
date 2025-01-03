@@ -23,3 +23,4 @@ Route::get('/checkout/{order}', [App\Http\Controllers\CheckoutController::class,
 
 Route::get('/order-complete/{order}', App\Http\Controllers\OrderCompleteController::class)->name('orders.complete');
 
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
