@@ -12,26 +12,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $query = Product::query()
-            ->when($request->query('with'), function (Builder $query, $with) {
+            ->when(request('with'), function(Builder $query, $with) {
                 $query->with(explode(',', $with));
             })
-            ->when($request->query('search'), function (Builder $query, $search) {
-                return $query->where('name', 'like', '%' . $search . '%');
+            ->when(request('search'), function(Builder $query, $search) {
+                return $query->where('name', 'like', '%'.$search);
             });
-    
-        // Lấy tham số sort (asc hoặc desc), mặc định là asc
-        $sort = $request->query('sort', 'asc');
-    
-        // Sắp xếp theo giá (price)
-        $query->orderBy('price', $sort);
-    
-        // Phân trang
+
         return $query->simplePaginate();
     }
-    
 
     /**
      * Store a newly created resource in storage.
