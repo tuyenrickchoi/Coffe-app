@@ -29,6 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/api-tokens', [App\Http\Controllers\ApiTokenManagerController::class, 'index'])->name('apiTokens.index');
 
 
